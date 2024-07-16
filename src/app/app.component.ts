@@ -19,11 +19,11 @@ import { IStoredWorkspace } from "@codingame/monaco-vscode-configuration-service
 import { homedir } from "node:os";
 
 @Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [],
-  templateUrl: "./app.component.html",
-  styleUrl: "./app.component.scss"
+    selector: "app-root",
+    standalone: true,
+    imports: [],
+    templateUrl: "./app.component.html",
+    styleUrl: "./app.component.scss"
 })
 export class AppComponent implements AfterViewInit {
     @ViewChild("editor")

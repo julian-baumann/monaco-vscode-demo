@@ -41,7 +41,7 @@ function createWindowWithRoute(width, height, route = "", minimizable = false, m
             .then()
             .catch((error) => console.error(error));
     } else {
-        window.loadURL(`file://${__dirname}/../../dist/cor-code/index.html#${route}`)
+        window.loadURL(`file://${__dirname}/../../dist/monaco-test/index.html#${route}`)
             .then()
             .catch((error) => console.error(error));
     }
