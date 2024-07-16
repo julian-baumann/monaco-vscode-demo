@@ -10,8 +10,6 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
         "@codingame/esbuild-import-meta-url-plugin": "^1.0.2",
         "@codingame/monaco-vscode-all-default-extensions": "^7.0.7",
         "@codingame/monaco-vscode-chat-service-override": "^7.0.7",
@@ -30,6 +28,7 @@
         "@codingame/monaco-vscode-search-service-override": "7.0.7",
         "@codingame/monaco-vscode-storage-service-override": "^7.0.7",
         "@codingame/monaco-vscode-swift-default-extension": "7.0.7",
+        "@codingame/monaco-vscode-task-service-override": "^7.0.7",
         "@codingame/monaco-vscode-terminal-service-override": "^7.0.7",
         "@codingame/monaco-vscode-textmate-service-override": "7.0.7",
         "@codingame/monaco-vscode-theme-defaults-default-extension": "7.0.7",
@@ -38,6 +37,8 @@
         "@types/vscode": "^1.91.0",
         "electron": "^31.1.0",
         "monaco-editor": "npm:@codingame/monaco-vscode-editor-api@7.0.7",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
         "vscode": "npm:@codingame/monaco-vscode-api@7.0.7"
     },
     "devDependencies": {

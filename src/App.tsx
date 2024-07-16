@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
-import './App.css'
+import { useEffect, useRef } from "react";
+import "./App.css";
 import "vscode/localExtensionHost";
 import "@codingame/monaco-vscode-swift-default-extension";
 import "@codingame/monaco-vscode-theme-defaults-default-extension";
@@ -14,6 +14,8 @@ import getSearchServiceOverride from "@codingame/monaco-vscode-search-service-ov
 import getTextmateServiceOverride from "@codingame/monaco-vscode-textmate-service-override";
 import getThemeServiceOverride from "@codingame/monaco-vscode-theme-service-override";
 import getViewsServiceOverride, { attachPart, Parts } from "@codingame/monaco-vscode-views-service-override";
+import getTaskServiceOverride from "@codingame/monaco-vscode-task-service-override"
+
 import * as monaco from "monaco-editor";
 import * as vscode from "vscode";
 import { initialize as initializeMonacoService } from "vscode/services";
@@ -80,22 +82,22 @@ print("Hello, world!")`));
                     )
                 )
             );
-            //
-            // const workerLoaders: Partial<Record<string, WorkerLoader>> = {
-            //     editorWorkerService: () => new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url), { type: 'module' }),
-            //     textMateWorker: () => new Worker(new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url), { type: 'module' }),
-            //     languageDetectionWorkerService: () => new Worker(new URL('@codingame/monaco-vscode-language-detection-worker-service-override/worker', import.meta.url), { type: 'module' }),
-            //     localFileSearchWorker: () => new Worker(new URL('@codingame/monaco-vscode-search-service-override/worker', import.meta.url), { type: 'module' })
-            // }
-            // window.MonacoEnvironment = {
-            //     getWorker: function (moduleId, label) {
-            //         const workerFactory = workerLoaders[label]
-            //         if (workerFactory != null) {
-            //             return workerFactory()
-            //         }
-            //         throw new Error(`Unimplemented worker ${label} (${moduleId})`)
-            //     }
-            // }
+
+            const workerLoaders: Partial<Record<string, WorkerLoader>> = {
+                editorWorkerService: () => new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url), { type: 'module' }),
+                textMateWorker: () => new Worker(new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url), { type: 'module' }),
+                languageDetectionWorkerService: () => new Worker(new URL('@codingame/monaco-vscode-language-detection-worker-service-override/worker', import.meta.url), { type: 'module' }),
+                localFileSearchWorker: () => new Worker(new URL('@codingame/monaco-vscode-search-service-override/worker', import.meta.url), { type: 'module' })
+            }
+            window.MonacoEnvironment = {
+                getWorker: function (moduleId, label) {
+                    const workerFactory = workerLoaders[label]
+                    if (workerFactory != null) {
+                        return workerFactory()
+                    }
+                    throw new Error(`Unimplemented worker ${label} (${moduleId})`)
+                }
+            }
 
             registerFileSystemOverlay(1, fsProvider);
             await initializeMonacoService({
@@ -120,7 +122,8 @@ print("Hello, world!")`));
                 ...getTerminalServiceOverride(),
                 ...getChatServiceOverride(),
                 ...getScmServiceOverride(),
-                ...getLanguageDetectionWorkerServiceOverride()
+                ...getLanguageDetectionWorkerServiceOverride(),
+                ...getTaskServiceOverride()
             }, undefined, {
                 remoteAuthority: "localhost:8080",
                 workspaceProvider: {
@@ -131,9 +134,6 @@ print("Hello, world!")`));
                     workspace: { workspaceUri: workspaceFile }
                 }
             });
-
-
-            console.log("HTML element", editorRef.current);
 
             attachPart(Parts.EDITOR_PART, editorRef.current!);
 
