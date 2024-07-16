@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 swift-project/.swiftpm
 vscode-server-darwin-arm64/node_modules
+swift-project/.build

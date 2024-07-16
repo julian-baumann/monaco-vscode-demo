@@ -1,22 +1,38 @@
 import "vscode/localExtensionHost";
+import "@codingame/monaco-vscode-swift-default-extension";
 
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
-import getExtensionServiceOverride, { ExtensionHostKind, WorkerConfig } from "@codingame/monaco-vscode-extensions-service-override";
+import getExtensionServiceOverride, { WorkerConfig } from "@codingame/monaco-vscode-extensions-service-override";
 import getFileServiceOverride, { RegisteredFileSystemProvider, RegisteredMemoryFile, registerFileSystemOverlay } from "@codingame/monaco-vscode-files-service-override";
 import getLanguagesServiceOverride from "@codingame/monaco-vscode-languages-service-override";
 import getModelServiceOverride from "@codingame/monaco-vscode-model-service-override";
 import getRemoteAgentServiceOverride from "@codingame/monaco-vscode-remote-agent-service-override";
 import getSearchServiceOverride from "@codingame/monaco-vscode-search-service-override";
-// import "@codingame/monaco-vscode-swift-default-extension";
+
 import getTextmateServiceOverride from "@codingame/monaco-vscode-textmate-service-override";
 import getThemeServiceOverride from "@codingame/monaco-vscode-theme-service-override";
 import getViewsServiceOverride, { attachPart, Parts } from "@codingame/monaco-vscode-views-service-override";
 import * as monaco from "monaco-editor";
 import * as vscode from "vscode";
-import { registerExtension, registerRemoteExtension } from "vscode/extensions";
 import { initialize as initializeMonacoService } from "vscode/services";
-import { IStoredWorkspace } from "@codingame/monaco-vscode-configuration-service-override";
-import { homedir } from "node:os";
+import getConfigurationServiceOverride, { IStoredWorkspace } from "@codingame/monaco-vscode-configuration-service-override";
+
+import getExtensionsGalleryServiceOverride from "@codingame/monaco-vscode-extension-gallery-service-override"
+import getExplorerServiceOverride from "@codingame/monaco-vscode-explorer-service-override"
+import getDebugServiceOverride from "@codingame/monaco-vscode-debug-service-override"
+import getStorageServiceOverride from "@codingame/monaco-vscode-storage-service-override"
+import getTerminalServiceOverride from "@codingame/monaco-vscode-terminal-service-override"
+import getChatServiceOverride from "@codingame/monaco-vscode-chat-service-override"
+import getScmServiceOverride from "@codingame/monaco-vscode-scm-service-override"
+import getLanguageDetectionWorkerServiceOverride from "@codingame/monaco-vscode-language-detection-worker-service-override";
+
+
+export type WorkerLoader = () => Worker;
+
+export const workerConfig: WorkerConfig = {
+    url: new URL("vscode/workers/extensionHost.worker", import.meta.url).toString(),
+    options: { type: "module" }
+};
 
 @Component({
     selector: "app-root",
@@ -75,6 +91,22 @@ print("Hello, world!")`));
             )
         );
 
+        // const workerLoaders: Partial<Record<string, WorkerLoader>> = {
+        //     editorWorkerService: () => new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url), { type: 'module' }),
+        //     textMateWorker: () => new Worker(new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url), { type: 'module' }),
+        //     languageDetectionWorkerService: () => new Worker(new URL('@codingame/monaco-vscode-language-detection-worker-service-override/worker', import.meta.url), { type: 'module' }),
+        //     localFileSearchWorker: () => new Worker(new URL('@codingame/monaco-vscode-search-service-override/worker', import.meta.url), { type: 'module' })
+        // }
+        // window.MonacoEnvironment = {
+        //     getWorker: function (moduleId, label) {
+        //         const workerFactory = workerLoaders[label]
+        //         if (workerFactory != null) {
+        //             return workerFactory()
+        //         }
+        //         throw new Error(`Unimplemented worker ${label} (${moduleId})`)
+        //     }
+        // }
+
         registerFileSystemOverlay(1, fsProvider);
         await initializeMonacoService({
             ...getRemoteAgentServiceOverride({
@@ -87,7 +119,18 @@ print("Hello, world!")`));
             ...getTextmateServiceOverride(),
             ...getViewsServiceOverride(),
             ...getFileServiceOverride(),
-            ...getSearchServiceOverride()
+            ...getSearchServiceOverride(),
+            ...getConfigurationServiceOverride(),
+            ...getExtensionsGalleryServiceOverride({
+                webOnly: true
+            }),
+            ...getExplorerServiceOverride(),
+            ...getDebugServiceOverride(),
+            ...getStorageServiceOverride(),
+            ...getTerminalServiceOverride(),
+            ...getChatServiceOverride(),
+            ...getScmServiceOverride(),
+            ...getLanguageDetectionWorkerServiceOverride()
         }, undefined, {
             remoteAuthority: "localhost:8080",
             workspaceProvider: {
@@ -99,22 +142,22 @@ print("Hello, world!")`));
             }
         });
 
-        const extension = await registerRemoteExtension(`${homedir()}/.vscode-server/extensions/sswg.swift-lang-1.10.4`);
-        console.log("Is Swift Extension Enabled:", await extension.isEnabled());
+        // const extension = await registerRemoteExtension(`${homedir()}/.vscode-server/extensions/sswg.swift-lang-1.10.4`);
+        // console.log("Is Swift Extension Enabled:", await extension.isEnabled());
 
         // monaco.languages.register({ id: "swift" });
 
-        // attachPart(Parts.EDITOR_PART, this.editorRef.nativeElement!);
+        attachPart(Parts.EDITOR_PART, this.editorRef.nativeElement!);
 
-        const modelRef = await monaco.editor.createModelReference(monaco.Uri.file("/Sources/main.swift"));
-
-        monaco.editor.create(this.editorRef.nativeElement!, {
-            "semanticHighlighting.enabled": true,
-            model: modelRef.object.textEditorModel
-        });
-
-        // vscode.workspace.openTextDocument("/Sources/main.swift").then((doc) => {
-        //     vscode.window.showTextDocument(doc);
+        // const modelRef = await monaco.editor.createModelReference(monaco.Uri.file("/Sources/main.swift"));
+        //
+        // monaco.editor.create(this.editorRef.nativeElement!, {
+        //     "semanticHighlighting.enabled": true,
+        //     model: modelRef.object.textEditorModel
         // });
+
+        vscode.workspace.openTextDocument("/Sources/main.swift").then((doc) => {
+            vscode.window.showTextDocument(doc);
+        });
     }
 }

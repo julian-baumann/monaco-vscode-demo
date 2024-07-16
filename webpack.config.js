@@ -13,5 +13,13 @@ module.exports = {
         fs: 'commonjs fs',
         path: 'commonjs path',
         electron: 'commonjs electron'
+    },
+    module: {
+        parser: {
+            javascript: {
+                importMeta: false,
+                url: true,
+            }
+        }
     }
 };

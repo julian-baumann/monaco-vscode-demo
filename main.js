@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain, systemPreferences, dialog} = require("electron");
+const { app, BrowserWindow, ipcMain, systemPreferences, protocol} = require("electron");
+const path = require("node:path");
 
 const args = process.argv.slice(1);
 const serve = args.some(val => val === "--serve");
@@ -17,6 +18,10 @@ function createWindow(width, height, minimizable = false, maximizable = false, f
         resizable: devTools ? true : resizable,
         vibrancy: devTools ? undefined : "sidebar",
         webPreferences: {
+            nodeIntegrationInSubFrames: true,
+            nodeIntegrationInWorker: true,
+            sandbox: false,
+            webSecurity: false,
             nodeIntegration: true,
             contextIsolation: false
         }
@@ -37,11 +42,11 @@ function createWindowWithRoute(width, height, route = "", minimizable = false, m
     const window = createWindow(width, height, minimizable, maximizable, fullscreenable, resizable);
 
     if (serve) {
-        window.loadURL(`http://localhost:4200#${route}`)
+        window.loadURL(`http://localhost:5173`)
             .then()
             .catch((error) => console.error(error));
     } else {
-        window.loadURL(`file://${__dirname}/../../dist/monaco-test/index.html#${route}`)
+        window.loadURL(`file://${__dirname}/dist/monaco-test/index.html#${route}`)
             .then()
             .catch((error) => console.error(error));
     }
@@ -51,7 +56,7 @@ function createWindowWithRoute(width, height, route = "", minimizable = false, m
 
 
 function createStartupWindow() {
-    mainWindow = createWindowWithRoute( 700, 800);
+    mainWindow = createWindowWithRoute(700, 800);
 }
 
 app.on("ready", () => {
