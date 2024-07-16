@@ -1,27 +1,38 @@
 # MonacoTest
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+Demo for [#465](https://github.com/CodinGame/monaco-vscode-api/issues/465)
 
-## Development server
+All relevant parts are location in [./src/app/app.component.ts](./src/app/app.component.ts)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Getting started
 
-## Code scaffolding
+### Downloading the server
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Download the `code-server` from `https://update.code.visualstudio.com/commit:f1e16e1e6214d7c44d078b1f0607b2388f29d729/server-<platform>-<arch>/stable` for your platform.
+2. Change the `webEndpointUrlTemplate` in the `product.json` to `http://localhost:4200`;
 
-## Build
+> There is a server included in this repository for darwin-arm64. You may take the product.json from there.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Starting the server
 
-## Running unit tests
+1. You will have to install the swift extension which is found in the root of this repository ([./sswg.swift-lang-1.10.4.vsix](./sswg.swift-lang-1.10.4.vsix))
+```bash
+./bin/code-server --install-extension <path to sswg.swift-lang-1.10.4.vsix>
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Now start the server with the following arguments:
+```bash
+./bin/code-server --port 8080 --without-connection-token --accept-server-license-terms --host 0.0.0.0
+```
 
-## Running end-to-end tests
+### Starting the Angular application
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm install
+npm run start
+```
+This will start the development server of angular with hot reloading enabled.
+Since we're using node modules in our angular application, you won't be able to open the application in the browser, instead start the electron instance with this npm script:
+```
+npm run electron:serve
+```

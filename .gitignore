@@ -40,3 +40,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+swift-project/.swiftpm
+vscode-server-darwin-arm64/node_modules
