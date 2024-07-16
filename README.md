@@ -1,38 +1,30 @@
-# MonacoTest
+# React + TypeScript + Vite
 
-Demo for [#465](https://github.com/CodinGame/monaco-vscode-api/issues/465)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-All relevant parts are location in [./src/app/app.component.ts](./src/app/app.component.ts)
+Currently, two official plugins are available:
 
-## Getting started
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Downloading the server
+## Expanding the ESLint configuration
 
-1. Download the `code-server` from `https://update.code.visualstudio.com/commit:f1e16e1e6214d7c44d078b1f0607b2388f29d729/server-<platform>-<arch>/stable` for your platform.
-2. Change the `webEndpointUrlTemplate` in the `product.json` to `http://localhost:4200`;
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-> You can also copy the `product.json` from [./vscode-server/product.json](./vscode-server/product.json)
+- Configure the top-level `parserOptions` property like this:
 
-### Starting the server
-
-1. You will have to install the swift extension which is found in the root of this repository ([./sswg.swift-lang-1.10.4.vsix](./sswg.swift-lang-1.10.4.vsix))
-```bash
-./bin/code-server --install-extension <path to sswg.swift-lang-1.10.4.vsix>
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
 ```
 
-2. Now start the server with the following arguments:
-```bash
-./bin/code-server --port 8080 --without-connection-token --accept-server-license-terms --host 0.0.0.0
-```
-
-### Starting the Angular application
-
-```bash
-npm install
-npm run start
-```
-This will start the development server of angular with hot reloading enabled.
-Since we're using node modules in our angular application, you won't be able to open the application in the browser, instead start the electron instance with this npm script:
-```
-npm run electron:serve
-```
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
