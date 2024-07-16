@@ -11,7 +11,7 @@ All relevant parts are location in [./src/app/app.component.ts](./src/app/app.co
 1. Download the `code-server` from `https://update.code.visualstudio.com/commit:f1e16e1e6214d7c44d078b1f0607b2388f29d729/server-<platform>-<arch>/stable` for your platform.
 2. Change the `webEndpointUrlTemplate` in the `product.json` to `http://localhost:4200`;
 
-> There is a server included in this repository for darwin-arm64. You may take the product.json from there.
+> You can also copy the `product.json` from [./vscode-server/product.json](./vscode-server/product.json)
 
 ### Starting the server
 
