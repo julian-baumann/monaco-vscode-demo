@@ -65,7 +65,7 @@ print("Hello, world!")`));
                     ({
                         folders: [
                             {
-                                path: "/"
+                                path: "."
                             }
                         ]
                     } as IStoredWorkspace),
