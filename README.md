@@ -13,6 +13,8 @@ All relevant parts are location in [./src/app/app.component.ts](./src/app/app.co
 
 > You can also copy the `product.json` from [./vscode-server/product.json](./vscode-server/product.json)
 
+For more detailed instructions, please refer to [monaco-vscode-api/vscode_server.md](https://github.com/CodinGame/monaco-vscode-api/blob/main/docs/vscode_server.md)
+
 ### Starting the server
 
 1. You will have to install the swift extension which is found in the root of this repository ([./sswg.swift-lang-1.10.4.vsix](./sswg.swift-lang-1.10.4.vsix))
