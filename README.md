@@ -27,6 +27,8 @@ All relevant parts are location in [./src/app/app.component.ts](./src/app/app.co
 
 ### Starting the Angular application
 
+https://github.com/julian-baumann/monaco-vscode-demo/blob/d971c0f71a0783d53cf613397a0bd620277516aa/src/app/app.component.ts#L50
+
 Adjust the `projectPath` to your swift project in [./src/app/app.component.ts](./src/app/app.component.ts)
 
 ```bash
@@ -34,7 +36,7 @@ npm install
 npm run start
 ```
 This will start the development server of angular with hot reloading enabled.
-Since we're using node modules in our angular application, you won't be able to open the application in the browser, instead start the electron instance with this npm script:
+Either view this project in a browser or start electron with this command:
 ```
 npm run electron:serve
 ```
