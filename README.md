@@ -36,7 +36,7 @@ npm install
 npm run start
 ```
 This will start the development server of angular with hot reloading enabled.
-Since we're using node modules in our angular application, you won't be able to open the application in the browser, instead start the electron instance with this npm script:
+Either view this project in a browser or start electron with this command:
 ```
 npm run electron:serve
 ```
