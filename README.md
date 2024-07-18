@@ -27,6 +27,8 @@ All relevant parts are location in [./src/app/app.component.ts](./src/app/app.co
 
 ### Starting the Angular application
 
+https://github.com/julian-baumann/monaco-vscode-demo/blob/d971c0f71a0783d53cf613397a0bd620277516aa/src/app/app.component.ts#L50
+
 Adjust the `projectPath` to your swift project in [./src/app/app.component.ts](./src/app/app.component.ts)
 
 ```bash
