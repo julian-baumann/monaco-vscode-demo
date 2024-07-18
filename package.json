@@ -5,7 +5,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "electron": "ng build --base-href ./ && electron . --dev-tools",
+        "electron": "ng build --base-href ./ && electron .",
         "electron:serve": "electron . --serve --dev-tools",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
@@ -38,6 +38,7 @@
         "@codingame/monaco-vscode-search-service-override": "7.0.7",
         "@codingame/monaco-vscode-storage-service-override": "^7.0.7",
         "@codingame/monaco-vscode-swift-default-extension": "7.0.7",
+        "@codingame/monaco-vscode-task-service-override": "^7.0.7",
         "@codingame/monaco-vscode-terminal-service-override": "^7.0.7",
         "@codingame/monaco-vscode-textmate-service-override": "7.0.7",
         "@codingame/monaco-vscode-theme-defaults-default-extension": "7.0.7",

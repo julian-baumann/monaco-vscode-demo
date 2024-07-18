@@ -27,6 +27,8 @@ All relevant parts are location in [./src/app/app.component.ts](./src/app/app.co
 
 ### Starting the Angular application
 
+Adjust the `projectPath` to your swift project in [./src/app/app.component.ts](./src/app/app.component.ts)
+
 ```bash
 npm install
 npm run start

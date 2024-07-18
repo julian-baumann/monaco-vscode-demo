@@ -18,11 +18,8 @@ function createWindow(width, height, minimizable = false, maximizable = false, f
         resizable: devTools ? true : resizable,
         vibrancy: devTools ? undefined : "sidebar",
         webPreferences: {
-            nodeIntegrationInSubFrames: true,
-            nodeIntegrationInWorker: true,
-            sandbox: false,
-            webSecurity: false,
-            nodeIntegration: true,
+            webSecurity: true,
+            nodeIntegration: false,
             contextIsolation: false
         }
     });
@@ -42,7 +39,7 @@ function createWindowWithRoute(width, height, route = "", minimizable = false, m
     const window = createWindow(width, height, minimizable, maximizable, fullscreenable, resizable);
 
     if (serve) {
-        window.loadURL(`http://localhost:5173`)
+        window.loadURL(`http://localhost:4200`)
             .then()
             .catch((error) => console.error(error));
     } else {

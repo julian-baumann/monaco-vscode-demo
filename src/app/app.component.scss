@@ -1,4 +1,11 @@
-.editor {
-    width: 100%;
+.sidebar {
+    max-width: 300px;
+}
+
+.container {
     height: 100%;
+    display: flex;
+
+    max-width: 100vw;
+    overflow: hidden;
 }
