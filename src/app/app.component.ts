@@ -55,10 +55,10 @@ export class AppComponent implements AfterViewInit {
         }
 
         const workerLoaders: Partial<Record<string, WorkerLoader>> = {
-            editorWorkerService: () => new Worker(new URL('monaco-editor/esm/vs/editor/editor.worker.js', import.meta.url), { type: 'module' }),
-            textMateWorker: () => new Worker(new URL('@codingame/monaco-vscode-textmate-service-override/worker', import.meta.url), { type: 'module' }),
-            languageDetectionWorkerService: () => new Worker(new URL('@codingame/monaco-vscode-language-detection-worker-service-override/worker', import.meta.url), { type: 'module' }),
-            localFileSearchWorker: () => new Worker(new URL('@codingame/monaco-vscode-search-service-override/worker', import.meta.url), { type: 'module' })
+            editorWorkerService: () => new Worker(new URL("monaco-editor/esm/vs/editor/editor.worker.js", import.meta.url), { type: "module" }),
+            textMateWorker: () => new Worker(new URL("@codingame/monaco-vscode-textmate-service-override/worker", import.meta.url), { type: "module" }),
+            languageDetectionWorkerService: () => new Worker(new URL("@codingame/monaco-vscode-language-detection-worker-service-override/worker", import.meta.url), { type: "module" }),
+            localFileSearchWorker: () => new Worker(new URL("@codingame/monaco-vscode-search-service-override/worker", import.meta.url), { type: "module" })
         }
 
         window.MonacoEnvironment = {
@@ -126,7 +126,6 @@ export class AppComponent implements AfterViewInit {
         attachPart(Parts.EDITOR_PART, this.editorRef.nativeElement);
         attachPart(Parts.ACTIVITYBAR_PART, this.activityBarRef.nativeElement);
         attachPart(Parts.SIDEBAR_PART, this.sidebarRef.nativeElement);
-
 
         vscode.workspace.openTextDocument(monaco.Uri.parse(`vscode-remote://localhost:8080${this.projectPath}/Sources/main.swift`)).then((doc) => {
             vscode.window.showTextDocument(doc);
